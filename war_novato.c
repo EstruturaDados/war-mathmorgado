@@ -32,6 +32,7 @@ int main() {
 
     for (int t = 0; t < MAX_TERRITORIOS; t++)
     {
+        printf("--- Cadastrando Territorio %d ---\n", t + 1);
         printf("Qual é o nome do território? ");
         fgets(territorios[t].nome, MAX_TAM_STRING, stdin);
 
