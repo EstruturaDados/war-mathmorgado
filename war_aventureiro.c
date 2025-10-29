@@ -17,12 +17,9 @@ typedef struct
 } war_game;
 
 
-// Função utilitária para limpar o buffer de entrada do teclado (stdin), evitando problemas com leituras consecutivas de scanf e getchar.
-void limparBufferEntrada() {
-    int c;
-    while((c = getchar()) != '\n' && c != EOF);
-}
-
+// declarando as funções
+void exibir_mapa(war_game territorios[]);
+void limparBufferEntrada();
 
 // --- Função Principal (main) ---
 int main() {
@@ -36,9 +33,11 @@ int main() {
         printf("--- Cadastrando Territorio %d ---\n", t + 1);
         printf("Qual é o nome do território? ");
         fgets(territorios[t].nome, MAX_TAM_STRING, stdin);
+        territorios[t].nome[strcspn(territorios[t].nome, "\n")] = '\0'; // Retira o \n no final da string
 
         printf("Qual é a cor do território? ");
         fgets(territorios[t].cor, MAX_TAM_STRING, stdin);
+        territorios[t].cor[strcspn(territorios[t].cor, "\n")] = '\0';
 
         printf("Qual é a quantidade de tropas do território? ");
         scanf("%d", &territorios[t].tropas);
@@ -47,16 +46,7 @@ int main() {
         printf("\n\n");
     }
 
-    for (int t = 0; t < MAX_TERRITORIOS; t++) 
-    {
-        int p = t + 1;
-        printf("TERRITÓRIO %d:\n", p);
-        printf("\t- Nome: %s", territorios[t].nome);
-        printf("\t- Cor: %s", territorios[t].cor);
-        printf("\t- Quantidade de tropas: %d", territorios[t].tropas);
-
-        printf("\n\n");
-    }
+    exibir_mapa(territorios);
     
     return 0;
 }
@@ -78,4 +68,10 @@ void exibir_mapa(war_game territorios[])
     }
 
     printf("\n");
+}
+
+// Função utilitária para limpar o buffer de entrada do teclado (stdin), evitando problemas com leituras consecutivas de scanf e getchar.
+void limparBufferEntrada() {
+    int c;
+    while((c = getchar()) != '\n' && c != EOF);
 }
